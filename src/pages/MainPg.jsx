@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import ImgAtm from "../components/atom/ImgAtm";
 import TitleAtm from "../components/atom/TitleAtm";
 import TextAtm from "../components/atom/TextAtm";
@@ -14,19 +16,19 @@ import intro3 from "../assets/images/intro3.png";
 import intro4 from "../assets/images/intro4.png";
 
 const MainPg = () => {
-  const slideLists = [
-    { img: slide1 },
-    { img: slide2 },
-    { img: slide3 },
-    // { img: slide4 },
-  ];
+  const slideLists = [slide1, slide2, slide3];
+  const introLists = [intro1, intro2, intro3, intro4];
 
-  const introLists = [
-    { img: intro1 },
-    { img: intro2 },
-    { img: intro3 },
-    { img: intro4 },
-  ];
+  const angle = 360 / introLists.length;
+
+  // setActivateImg()는 activateImg 변수의 상태를 업데이트하는 함수
+  const [activateImg, setActivateImg] = useState(null);
+  const [currentImg, setCurrentImg] = useState(0);
+
+  const imgCheck = (index) => {
+    setActivateImg(index);
+  };
+
   return (
     <section id="main">
       <div className="title">
@@ -36,7 +38,7 @@ const MainPg = () => {
           <TextAtm textProp="Without you, I have never existed." />
           <div className="intro_img d-flex">
             {introLists.map((v, i) => (
-              <ImgAtm key={i} srcProp={v.img} altProp={`${v.img} 이미지`} />
+              <ImgAtm key={i} srcProp={v} altProp={`${v} 이미지`} />
             ))}
           </div>
         </div>
@@ -48,8 +50,18 @@ const MainPg = () => {
       <div className="slider_all mx-auto position-relative">
         <div className="slider_img mx-auto d-flex justify-content-center position-absolute">
           {slideLists.map((v, i) => (
-            <div className="slider position-absolute" key={i}>
-              <ImgAtm srcProp={v.img} altProp={`${v.img} 이미지`} />
+            <div
+              className={`slider ${
+                activateImg === i ? "effect" : ""
+              } position-absolute `}
+              key={i}
+              onClick={() => imgCheck(i)}
+            >
+              <ImgAtm
+                className={`img${i}`}
+                srcProp={v}
+                altProp={`${v} 이미지`}
+              />
             </div>
           ))}
         </div>
