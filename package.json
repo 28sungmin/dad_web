@@ -24,6 +24,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
+  "homepage": "https://28sungmin.github.io/",
   "eslintConfig": {
     "extends": [
       "react-app",
